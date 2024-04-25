@@ -15,6 +15,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.6.3] - 2024-04-22
+
+### Changed
+
+- No changes (matching release)
+
+## [0.6.2] - 2024-04-22
+
+### Changed
+
+- Bumped UBI version to 9.3-1610
+
+## [0.6.1] - 2024-02-23
+
+### Fixed
+
+- Fix double call to StartWorkers() function when policy are reloaded
+
 ## [0.6.0] - 2023-11-28
 
 ### Added
@@ -205,7 +223,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - First release of SysFlow Processor.
 
-[Unreleased]: https://github.com/sysflow-telemetry/sf-processor/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/sysflow-telemetry/sf-processor/compare/0.6.3...HEAD
+[0.6.3]: https://github.com/sysflow-telemetry/sf-processor/compare/0.6.2...0.6.3
+[0.6.2]: https://github.com/sysflow-telemetry/sf-processor/compare/0.6.1...0.6.2
+[0.6.1]: https://github.com/sysflow-telemetry/sf-processor/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/sysflow-telemetry/sf-processor/compare/0.5.1...0.6.0
 [0.5.1]: https://github.com/sysflow-telemetry/sf-processor/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/sysflow-telemetry/sf-processor/compare/0.4.4...0.5.0
