@@ -23,7 +23,7 @@ package commons
 import (
 	"strconv"
 
-	"github.com/sysflow-telemetry/sf-apis/go/secrets"
+	"github.com/cisco-eti/sf-apis/go/secrets"
 )
 
 // Configuration keys.

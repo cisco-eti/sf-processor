@@ -10,7 +10,7 @@
      "processor": "policyengine",
      "in": "flat flattenerchan",
      "out": "evt eventchan",
-     "policies": "/etc/sysflow/policies/distribution/filter.yaml", 
+     "policies": "/workspaces/sf-collector/sf-processor/resources/policies/distribution/filter2.yaml", 
      "mode": "alert"     
     },
     {

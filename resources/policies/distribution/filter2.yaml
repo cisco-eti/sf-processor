@@ -1,0 +1,19 @@
+##### Macros
+
+- macro: FileFlow
+  condition: sf.type=FF
+
+- macro: FileEvent
+  condition: sf.type=FE
+
+- macro: FileOpen
+  condition: FileFlow and sf.opflags = OPEN
+
+- macro: file_open_read
+  condition: FileOpen and sf.file.is_open_read = true
+
+- rule: File Opened with Read Permissions
+  desc: File Opened with Read Permissions
+  condition: file_open_read and sf.file.path = /tmp/thefile.txt and sf.proc.thread_cap_permitted contains CAP_NET_ASD
+  priority: low
+  prefilter: [FF]

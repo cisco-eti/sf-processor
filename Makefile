@@ -24,7 +24,7 @@ INSTALL_PATH=/usr/local/sysflow
 
 .PHONY: build
 build: version deps
-	cd $(SRC) && $(GOBUILD) -o $(OUTPUT) -v
+	cd $(SRC) && CGO_ENABLED=0 $(GOBUILD) -o $(OUTPUT) -v
 
 .PHONY: package
 package: 

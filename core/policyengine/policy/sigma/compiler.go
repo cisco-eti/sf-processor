@@ -26,7 +26,7 @@ import (
 	"strings"
 
 	"github.com/bradleyjkemp/sigma-go"
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/logger"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/policy"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/source"
 )

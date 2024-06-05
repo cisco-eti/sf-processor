@@ -4,7 +4,7 @@ User-defined plugins can be plugged and extend the sf-processor pipeline. These 
 
 ## Interface
 
-Processor plugins (or just plugins) are implemented via the golang plugin mechanism. A plugin must implement the following interface, defined in the `github.com/sysflow-telemetry/sf-apis/go/plugins` package.
+Processor plugins (or just plugins) are implemented via the golang plugin mechanism. A plugin must implement the following interface, defined in the `github.com/cisco-eti/sf-apis/go/plugins` package.
 
 ```go
 // SFProcessor defines the SysFlow processor interface.

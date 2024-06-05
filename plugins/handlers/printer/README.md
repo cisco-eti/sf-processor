@@ -4,7 +4,7 @@ User-defined handler modules can be plugged to the built-in SysFlow `processor` 
 
 ## Interface
 
-Handlers are implemented via the golang plugin mechanism. A handler must implement the following interface, defined in the `github.com/sysflow-telemetry/sf-apis/go/plugins` package.
+Handlers are implemented via the golang plugin mechanism. A handler must implement the following interface, defined in the `github.com/cisco-eti/sf-apis/go/plugins` package.
 
 ```go
 // SFHandler defines the SysFlow handler interface.

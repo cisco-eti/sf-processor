@@ -26,9 +26,9 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
-	"github.com/sysflow-telemetry/sf-apis/go/plugins"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/plugins"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 )
 
 const (
@@ -152,6 +152,9 @@ func (s *Flattener) HandleNetFlow(sf *plugins.CtxSysFlow, nf *sfgo.NetworkFlow) 
 	s.fillEntities(sf.Header, sf.Pod, sf.Container, sf.Process, nil, fr)
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_NETW_TS_INT] = nf.Ts
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_NETW_TID_INT] = nf.Tid
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.FL_NETW_CAP_PERMITTED_STR] = nf.TCapPermitted
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.FL_NETW_CAP_EFFECTIVE_STR] = nf.TCapEffective
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.FL_NETW_CAP_INHERITABLE_STR] = nf.TCapInheritable
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_NETW_OPFLAGS_INT] = int64(nf.OpFlags)
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_NETW_ENDTS_INT] = nf.EndTs
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_NETW_SIP_INT] = int64(nf.Sip)
@@ -177,6 +180,9 @@ func (s *Flattener) HandleFileFlow(sf *plugins.CtxSysFlow, ff *sfgo.FileFlow) er
 	s.fillEntities(sf.Header, sf.Pod, sf.Container, sf.Process, sf.File, fr)
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_FILE_TS_INT] = ff.Ts
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_FILE_TID_INT] = ff.Tid
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.FL_FILE_CAP_PERMITTED_STR] = ff.TCapPermitted
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.FL_FILE_CAP_EFFECTIVE_STR] = ff.TCapEffective
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.FL_FILE_CAP_INHERITABLE_STR] = ff.TCapInheritable
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_FILE_OPFLAGS_INT] = int64(ff.OpFlags)
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_FILE_OPENFLAGS_INT] = int64(ff.OpenFlags)
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.FL_FILE_ENDTS_INT] = ff.EndTs
@@ -219,6 +225,9 @@ func (s *Flattener) HandleFileEvt(sf *plugins.CtxSysFlow, fe *sfgo.FileEvent) er
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.EV_FILE_TID_INT] = fe.Tid
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.EV_FILE_OPFLAGS_INT] = int64(fe.OpFlags)
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.EV_FILE_RET_INT] = int64(fe.Ret)
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.EV_FILE_CAP_PERMITTED_STR] = fe.TCapPermitted
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.EV_FILE_CAP_EFFECTIVE_STR] = fe.TCapEffective
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.EV_FILE_CAP_INHERITABLE_STR] = fe.TCapInheritable
 	fr.Ptree = sf.PTree
 	fr.GraphletID = sf.GraphletID
 	s.out(fr)
@@ -242,6 +251,9 @@ func (s *Flattener) HandleProcEvt(sf *plugins.CtxSysFlow, pe *sfgo.ProcessEvent)
 	s.fillEntities(sf.Header, sf.Pod, sf.Container, sf.Process, nil, fr)
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.EV_PROC_TS_INT] = pe.Ts
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.EV_PROC_TID_INT] = pe.Tid
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.EV_PROC_CAP_PERMITTED_STR] = pe.TCapPermitted
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.EV_PROC_CAP_EFFECTIVE_STR] = pe.TCapEffective
+	fr.Strs[sfgo.SYSFLOW_IDX][sfgo.EV_PROC_CAP_INHERITABLE_STR] = pe.TCapInheritable
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.EV_PROC_OPFLAGS_INT] = int64(pe.OpFlags)
 	fr.Ints[sfgo.SYSFLOW_IDX][sfgo.EV_PROC_RET_INT] = int64(pe.Ret)
 	fr.Ptree = sf.PTree

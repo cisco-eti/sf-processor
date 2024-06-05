@@ -29,9 +29,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cisco-eti/sf-apis/go/ioutils"
+	"github.com/cisco-eti/sf-apis/go/logger"
 	"github.com/fsnotify/fsnotify"
-	"github.com/sysflow-telemetry/sf-apis/go/ioutils"
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/engine"
 )
 

@@ -22,7 +22,7 @@
 package cache
 
 import (
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 )
 
 // SFTables defines thread-safe shared cache for plugins for storing SysFlow entities.

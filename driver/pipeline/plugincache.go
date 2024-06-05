@@ -28,10 +28,10 @@ import (
 	"plugin"
 	"strings"
 
+	"github.com/cisco-eti/sf-apis/go/ioutils"
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/plugins"
 	"github.com/spf13/viper"
-	"github.com/sysflow-telemetry/sf-apis/go/ioutils"
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
-	"github.com/sysflow-telemetry/sf-apis/go/plugins"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine"
 	"github.com/sysflow-telemetry/sf-processor/core/processor"
