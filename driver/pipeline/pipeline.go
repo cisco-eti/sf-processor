@@ -26,8 +26,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
-	"github.com/sysflow-telemetry/sf-apis/go/plugins"
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/plugins"
 )
 
 // Pipeline represents a loaded plugin pipeline

@@ -30,8 +30,8 @@ import (
 	"strings"
 
 	"github.com/cespare/xxhash/v2"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 	"github.com/satta/gommunityid"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/commons"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/utils"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/policy"
@@ -470,14 +470,22 @@ func encodeUser(rec *flatrecord.Record) JSONData {
 // encodeProcess creates an ECS process field including the nested parent process.
 func encodeProcess(rec *flatrecord.Record) JSONData {
 	exe := flatrecord.Mapper.MapStr(flatrecord.SF_PROC_EXE)(rec)
+
+	capPerm := flatrecord.Mapper.MapStr(flatrecord.SF_PROC_CAP_PERMITTED)(rec)
+	capEff := flatrecord.Mapper.MapStr(flatrecord.SF_PROC_CAP_EFFECTIVE)(rec)
+	capInherit := flatrecord.Mapper.MapStr(flatrecord.SF_PROC_CAP_INHERITABLE)(rec)
+
 	process := JSONData{
-		ECS_PROC_EXE:     exe,
-		ECS_PROC_ARGS:    flatrecord.Mapper.MapStr(flatrecord.SF_PROC_ARGS)(rec),
-		ECS_PROC_CMDLINE: flatrecord.Mapper.MapStr(flatrecord.SF_PROC_CMDLINE)(rec),
-		ECS_PROC_PID:     flatrecord.Mapper.MapInt(flatrecord.SF_PROC_PID)(rec),
-		ECS_PROC_START:   utils.ToIsoTimeStr(flatrecord.Mapper.MapInt(flatrecord.SF_PROC_CREATETS)(rec)),
-		ECS_PROC_NAME:    path.Base(exe),
-		ECS_PROC_THREAD:  JSONData{ECS_PROC_TID: flatrecord.Mapper.MapInt(flatrecord.SF_PROC_TID)(rec)},
+		ECS_PROC_EXE:           exe,
+		ECS_PROC_ARGS:          flatrecord.Mapper.MapStr(flatrecord.SF_PROC_ARGS)(rec),
+		ECS_PROC_CMDLINE:       flatrecord.Mapper.MapStr(flatrecord.SF_PROC_CMDLINE)(rec),
+		ECS_PROC_PID:           flatrecord.Mapper.MapInt(flatrecord.SF_PROC_PID)(rec),
+		ECS_PROC_START:         utils.ToIsoTimeStr(flatrecord.Mapper.MapInt(flatrecord.SF_PROC_CREATETS)(rec)),
+		ECS_PROC_NAME:          path.Base(exe),
+		ECS_PROC_THREAD:        JSONData{ECS_PROC_TID: flatrecord.Mapper.MapInt(flatrecord.SF_PROC_TID)(rec)},
+		ECS_PROC_CAP_PERMITTED: capPerm,
+		ECS_PROC_CAP_EFFECTIVE: capEff,
+		ECS_PROC_CAP_INHERITED: capInherit,
 	}
 	pexe := flatrecord.Mapper.MapStr(flatrecord.SF_PPROC_EXE)(rec)
 	parent := JSONData{

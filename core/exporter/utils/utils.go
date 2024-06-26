@@ -25,7 +25,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 )
 
 // TrimBoundingQuotes removes bounding quotes from string.

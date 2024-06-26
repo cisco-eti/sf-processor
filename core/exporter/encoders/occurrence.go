@@ -32,11 +32,11 @@ import (
 	"time"
 
 	"github.com/cespare/xxhash/v2"
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 	"github.com/linkedin/goavro"
 	cmap "github.com/orcaman/concurrent-map"
 	"github.com/steakknife/bloomfilter"
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/commons"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/encoders/avro/occurrence/event"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/utils"

@@ -28,8 +28,8 @@ import (
 	"strings"
 
 	"github.com/cespare/xxhash/v2"
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/common"
 	"github.com/tidwall/gjson"
 )
@@ -230,7 +230,8 @@ func getFieldsAndValues() []*FieldValue {
 	mappers := getExportedMappers()
 	fields := make([]*FieldValue, 0, len(mappers))
 	for k, v := range mappers {
-		field := &FieldValue{FieldName: k,
+		field := &FieldValue{
+			FieldName:  k,
 			FieldSects: strings.Split(k, "."),
 			Entry:      v}
 
@@ -244,6 +245,7 @@ func getFieldsAndValues() []*FieldValue {
 		}
 		return ki < kj
 	})
+
 	return fields
 }
 
@@ -275,24 +277,27 @@ func getExportedMappers() map[string]*FieldEntry {
 		SF_TS:      &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.TS_INT), FlatIndex: sfgo.TS_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC},
 		SF_ENDTS:   &FieldEntry{Map: mapEndTs(sfgo.SYSFLOW_SRC), FlatIndex: sfgo.FL_FILE_ENDTS_INT, Type: MapSpecialInt, Source: sfgo.SYSFLOW_SRC},
 
-		SF_PROC_OID:      &FieldEntry{Map: mapOID(sfgo.SYSFLOW_SRC, sfgo.PROC_OID_HPID_INT, sfgo.PROC_OID_CREATETS_INT), FlatIndex: sfgo.PROC_OID_HPID_INT, Type: MapSpecialStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_PID:      &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_OID_HPID_INT), FlatIndex: sfgo.PROC_OID_HPID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_NAME:     &FieldEntry{Map: mapName(sfgo.SYSFLOW_SRC, sfgo.PROC_EXE_STR), FlatIndex: sfgo.PROC_EXE_STR, Type: MapSpecialStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_EXE:      &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.PROC_EXE_STR), FlatIndex: sfgo.PROC_EXE_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_ARGS:     &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.PROC_EXEARGS_STR), FlatIndex: sfgo.PROC_EXEARGS_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_UID:      &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_UID_INT), FlatIndex: sfgo.PROC_UID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_USER:     &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.PROC_USERNAME_STR), FlatIndex: sfgo.PROC_USERNAME_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_TID:      &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.TID_INT), FlatIndex: sfgo.TID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_GID:      &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_GID_INT), FlatIndex: sfgo.PROC_GID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_GROUP:    &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.PROC_GROUPNAME_STR), FlatIndex: sfgo.PROC_GROUPNAME_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_CREATETS: &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_OID_CREATETS_INT), FlatIndex: sfgo.PROC_OID_CREATETS_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_TTY:      &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_TTY_INT), FlatIndex: sfgo.PROC_TTY_INT, Type: MapBoolVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_ENTRY:    &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_ENTRY_INT), FlatIndex: sfgo.PROC_ENTRY_INT, Type: MapBoolVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_CMDLINE:  &FieldEntry{Map: mapJoin(sfgo.SYSFLOW_SRC, sfgo.PROC_EXE_STR, sfgo.PROC_EXEARGS_STR), FlatIndex: sfgo.PROC_EXE_STR, Type: MapSpecialStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
-		SF_PROC_ANAME:    &FieldEntry{Map: mapCachedValue(sfgo.SYSFLOW_SRC, ProcAName), FlatIndex: A_IDS, Type: MapArrayStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc, AuxAttr: ProcAName},
-		SF_PROC_AEXE:     &FieldEntry{Map: mapCachedValue(sfgo.SYSFLOW_SRC, ProcAExe), FlatIndex: A_IDS, Type: MapArrayStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc, AuxAttr: ProcAExe},
-		SF_PROC_ACMDLINE: &FieldEntry{Map: mapCachedValue(sfgo.SYSFLOW_SRC, ProcACmdLine), FlatIndex: A_IDS, Type: MapArrayStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc, AuxAttr: ProcACmdLine},
-		SF_PROC_APID:     &FieldEntry{Map: mapCachedValue(sfgo.SYSFLOW_SRC, ProcAPID), FlatIndex: A_IDS, Type: MapArrayInt, Source: sfgo.SYSFLOW_SRC, Section: SectProc, AuxAttr: ProcAPID},
+		SF_PROC_OID:             &FieldEntry{Map: mapOID(sfgo.SYSFLOW_SRC, sfgo.PROC_OID_HPID_INT, sfgo.PROC_OID_CREATETS_INT), FlatIndex: sfgo.PROC_OID_HPID_INT, Type: MapSpecialStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_PID:             &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_OID_HPID_INT), FlatIndex: sfgo.PROC_OID_HPID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_NAME:            &FieldEntry{Map: mapName(sfgo.SYSFLOW_SRC, sfgo.PROC_EXE_STR), FlatIndex: sfgo.PROC_EXE_STR, Type: MapSpecialStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_EXE:             &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.PROC_EXE_STR), FlatIndex: sfgo.PROC_EXE_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_ARGS:            &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.PROC_EXEARGS_STR), FlatIndex: sfgo.PROC_EXEARGS_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_UID:             &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_UID_INT), FlatIndex: sfgo.PROC_UID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_USER:            &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.PROC_USERNAME_STR), FlatIndex: sfgo.PROC_USERNAME_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_TID:             &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.TID_INT), FlatIndex: sfgo.TID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_GID:             &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_GID_INT), FlatIndex: sfgo.PROC_GID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_GROUP:           &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.PROC_GROUPNAME_STR), FlatIndex: sfgo.PROC_GROUPNAME_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_CREATETS:        &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_OID_CREATETS_INT), FlatIndex: sfgo.PROC_OID_CREATETS_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_TTY:             &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_TTY_INT), FlatIndex: sfgo.PROC_TTY_INT, Type: MapBoolVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_ENTRY:           &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_ENTRY_INT), FlatIndex: sfgo.PROC_ENTRY_INT, Type: MapBoolVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_CMDLINE:         &FieldEntry{Map: mapJoin(sfgo.SYSFLOW_SRC, sfgo.PROC_EXE_STR, sfgo.PROC_EXEARGS_STR), FlatIndex: sfgo.PROC_EXE_STR, Type: MapSpecialStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_CAP_PERMITTED:   &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.CAP_PERMITTED_STR), FlatIndex: sfgo.CAP_PERMITTED_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_CAP_EFFECTIVE:   &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.CAP_EFFECTIVE_STR), FlatIndex: sfgo.CAP_EFFECTIVE_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_CAP_INHERITABLE: &FieldEntry{Map: mapStr(sfgo.SYSFLOW_SRC, sfgo.CAP_INHERITABLE_STR), FlatIndex: sfgo.CAP_INHERITABLE_STR, Type: MapStrVal, Source: sfgo.SYSFLOW_SRC, Section: SectProc},
+		SF_PROC_ANAME:           &FieldEntry{Map: mapCachedValue(sfgo.SYSFLOW_SRC, ProcAName), FlatIndex: A_IDS, Type: MapArrayStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc, AuxAttr: ProcAName},
+		SF_PROC_AEXE:            &FieldEntry{Map: mapCachedValue(sfgo.SYSFLOW_SRC, ProcAExe), FlatIndex: A_IDS, Type: MapArrayStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc, AuxAttr: ProcAExe},
+		SF_PROC_ACMDLINE:        &FieldEntry{Map: mapCachedValue(sfgo.SYSFLOW_SRC, ProcACmdLine), FlatIndex: A_IDS, Type: MapArrayStr, Source: sfgo.SYSFLOW_SRC, Section: SectProc, AuxAttr: ProcACmdLine},
+		SF_PROC_APID:            &FieldEntry{Map: mapCachedValue(sfgo.SYSFLOW_SRC, ProcAPID), FlatIndex: A_IDS, Type: MapArrayInt, Source: sfgo.SYSFLOW_SRC, Section: SectProc, AuxAttr: ProcAPID},
 
 		SF_PPROC_OID:      &FieldEntry{Map: mapOID(sfgo.SYSFLOW_SRC, sfgo.PROC_POID_HPID_INT, sfgo.PROC_POID_CREATETS_INT), FlatIndex: sfgo.PROC_POID_HPID_INT, Type: MapSpecialStr, Source: sfgo.SYSFLOW_SRC, Section: SectPProc},
 		SF_PPROC_PID:      &FieldEntry{Map: mapInt(sfgo.SYSFLOW_SRC, sfgo.PROC_POID_HPID_INT), FlatIndex: sfgo.PROC_POID_HPID_INT, Type: MapIntVal, Source: sfgo.SYSFLOW_SRC, Section: SectPProc},

@@ -23,7 +23,7 @@ package flatrecord
 import (
 	"fmt"
 
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 )
 
 func parseSymPath(idx sfgo.Source, attr sfgo.Attribute, r *Record) (string, string) {

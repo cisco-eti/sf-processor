@@ -20,7 +20,7 @@
 // Package policy implements input policy translation for the rules engine.
 package policy
 
-import "github.com/sysflow-telemetry/sf-apis/go/logger"
+import "github.com/cisco-eti/sf-apis/go/logger"
 
 // Predicate defines the type of a functional predicate.
 type Predicate[R any] func(R) bool

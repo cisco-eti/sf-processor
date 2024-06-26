@@ -24,10 +24,10 @@ go 1.19
 
 require (
 	github.com/actgardner/gogen-avro/v7 v7.3.1
+	github.com/cisco-eti/sf-apis/go v0.0.0-20240605163601-d605a9754416
 	github.com/linkedin/goavro v2.1.0+incompatible
 	github.com/paulbellamy/ratecounter v0.2.0
 	github.com/spf13/viper v1.10.1
-	github.com/sysflow-telemetry/sf-apis/go v0.0.0-20230929141246-bc28a59e1300
 	github.com/sysflow-telemetry/sf-processor/core v0.0.0-20220221021811-25c7181c2904
 )
 
@@ -35,6 +35,7 @@ require (
 	github.com/IBM/go-sdk-core/v5 v5.9.2 // indirect
 	github.com/IBM/scc-go-sdk/v3 v3.1.5 // indirect
 	github.com/RackSec/srslog v0.0.0-20180709174129-a4725f04ec91 // indirect
+	github.com/actgardner/gogen-avro/v10 v10.2.1 // indirect
 	github.com/alecthomas/participle v0.7.1 // indirect
 	github.com/antlr/antlr4 v0.0.0-20200417160354-8c50731894e0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef // indirect
@@ -47,7 +48,7 @@ require (
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
-	github.com/golang/snappy v0.0.3 // indirect
+	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/gopacket v1.1.19 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.0 // indirect
@@ -68,6 +69,7 @@ require (
 	github.com/steakknife/bloomfilter v0.0.0-20180922174646-6819c0d2a570 // indirect
 	github.com/steakknife/hamming v0.0.0-20180906055917-c99c65617cd3 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
+	github.com/sysflow-telemetry/sf-apis/go v0.0.0-20240224034728-382270fa878c // indirect
 	github.com/tidwall/gjson v1.14.1 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect

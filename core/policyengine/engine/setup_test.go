@@ -21,7 +21,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/logger"
 )
 
 func TestMain(m *testing.M) {

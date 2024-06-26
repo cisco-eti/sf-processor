@@ -27,8 +27,9 @@ import (
 	"strings"
 	"unicode/utf8"
 
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 	"github.com/mailru/easyjson/jwriter"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/commons"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/utils"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/source/flatrecord"
@@ -504,6 +505,7 @@ func MapJSON(fv *flatrecord.FieldValue, writer *jwriter.Writer, r *flatrecord.Re
 	switch fv.Entry.Type {
 	case flatrecord.MapStrVal:
 		v := r.GetStr(fv.Entry.FlatIndex, fv.Entry.Source)
+		logger.Info.Println("Mapping string value.", v, " Source: ", fv.Entry.Source, "flat index", fv.Entry.FlatIndex)
 		writer.String(utils.TrimBoundingQuotes(v))
 	case flatrecord.MapIntVal:
 		writer.Int64(r.GetInt(fv.Entry.FlatIndex, fv.Entry.Source))

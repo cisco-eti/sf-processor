@@ -31,10 +31,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/cisco-eti/sf-apis/go/logger"
 	elasticsearch "github.com/elastic/go-elasticsearch/v8"
 	estransport "github.com/elastic/go-elasticsearch/v8/estransport"
 	"github.com/elastic/go-elasticsearch/v8/esutil"
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/commons"
 	"github.com/sysflow-telemetry/sf-processor/core/exporter/encoders"
 )

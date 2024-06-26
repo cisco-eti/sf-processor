@@ -26,7 +26,7 @@ import (
 	"time"
 
 	"github.com/cespare/xxhash/v2"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 )
 
 var byteInt64 []byte = make([]byte, 8)

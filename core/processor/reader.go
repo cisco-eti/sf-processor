@@ -25,9 +25,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
-	"github.com/sysflow-telemetry/sf-apis/go/plugins"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/plugins"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 	"github.com/sysflow-telemetry/sf-processor/core/cache"
 )
 

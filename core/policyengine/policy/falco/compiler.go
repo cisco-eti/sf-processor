@@ -27,7 +27,7 @@ import (
 	"strings"
 
 	"github.com/antlr/antlr4/runtime/Go/antlr"
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/logger"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/common"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/policy"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/policy/falco/lang/errorhandler"

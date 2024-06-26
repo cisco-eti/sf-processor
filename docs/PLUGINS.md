@@ -19,7 +19,7 @@ User-defined plugins can be plugged and extend the sf-processor pipeline. These 
 
 #### Interface
 
-Processor plugins (or just plugins) are implemented via the golang plugin mechanism. A plugin must implement the following interface, defined in the `github.com/sysflow-telemetry/sf-apis/go/plugins` package.
+Processor plugins (or just plugins) are implemented via the golang plugin mechanism. A plugin must implement the following interface, defined in the `github.com/cisco-eti/sf-apis/go/plugins` package.
 
 ```go
 // SFProcessor defines the SysFlow processor interface.
@@ -47,7 +47,7 @@ type SFTestableProcessor interface {
 
 #### Example
 
-A dynamic plugin example is provided in [github](https://github.com/sysflow-telemetry/sf-processor/tree/master/plugins/processors/example). The core of the plugin is building an object that implements an [SFProcessor interface](https://github.com/sysflow-telemetry/sf-apis/blob/master/go/plugins/processor.go). Such an implementation looks as follows:
+A dynamic plugin example is provided in [github](https://github.com/sysflow-telemetry/sf-processor/tree/master/plugins/processors/example). The core of the plugin is building an object that implements an [SFProcessor interface](https://github.com/cisco-eti/sf-apis/blob/master/go/plugins/processor.go). Such an implementation looks as follows:
 
 ```golang
 package main
@@ -55,9 +55,9 @@ package main
 import (
 	"sync"
 
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
-	"github.com/sysflow-telemetry/sf-apis/go/plugins"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/plugins"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 	"github.com/sysflow-telemetry/sf-processor/core/flattener"
 )
 
@@ -130,8 +130,8 @@ The custom plugin must implement the following interface:
     * `pc.AddProcessor(pluginName, <plugin constructor function>)` (required) - registers the plugin named `example` with the processor.  You must define a constructor function using the convention `New<PluginName>` which is used to instantiate the plugin, and returns it as an `SFProcessor` interface - see `NewExample` for an example.
     * `pc.AddChannel(channelName, <output channel constructor function>)` (optional)  - if your plugin is using a custom output channel of objects (i.e., the channel used to pass output objects from this plugin to the next in the pipeline), it should be included in this plugin.  
          * The `channelName` should be a lowercase unique label defining the channel type.  
-         * The constructor function should return a golang `interface{}` representing an object that as an `In` attribute of type `chan <ObjectToBePassed>`.  We will call this object, a wrapped channel object going forward.  For example, the channel object that passes sysflow objects is called SFChannel, and is defined [here](https://github.com/sysflow-telemetry/sf-apis/blob/master/go/plugins/processor.go)
-         * For a complete example of defining an output channel, see `NewFlattenerChan` in the [flattener](https://github.com/sysflow-telemetry/sf-processor/blob/master/core/flattener/flattener.go) as well as the `Register` function.  The `FlatChannel` is defined [here](https://github.com/sysflow-telemetry/sf-apis/blob/master/go/plugins/handler.go)
+         * The constructor function should return a golang `interface{}` representing an object that as an `In` attribute of type `chan <ObjectToBePassed>`.  We will call this object, a wrapped channel object going forward.  For example, the channel object that passes sysflow objects is called SFChannel, and is defined [here](https://github.com/cisco-eti/sf-apis/blob/master/go/plugins/processor.go)
+         * For a complete example of defining an output channel, see `NewFlattenerChan` in the [flattener](https://github.com/sysflow-telemetry/sf-processor/blob/master/core/flattener/flattener.go) as well as the `Register` function.  The `FlatChannel` is defined [here](https://github.com/cisco-eti/sf-apis/blob/master/go/plugins/handler.go)
 * `Process(ch interface{}, wg *sync.WaitGroup)`  - this function is launched by the processor as a go thread and is where the main plugin processing occurs.  It takes a wrapped channel object, which acts as the input data source to the plugin (i.e., this is the channel that is configured as the input channel to the plugin in the pipeline.json).  It also takes a sync.WaitGroup object, which is used to signal to the processor when the plugin has completed running (see `defer wg.Done()` in code).  The processor must loop on the input channel, and do its analysis on each input record.  In this case, the example plugin is reading flat records and printing them to the screen. 
 * `SetOutChan(ch []interface{})` - sets the wrapped channels that will serve as the output channels for the plugin.  The output channels are instantiated by the processor, which is also in charge of stitching the plugins together.  If the plugin is the last one in the chain, then this function can be left empty. See the `SetOutputChan` function in the [flattener](https://github.com/sysflow-telemetry/sf-processor/blob/master/core/flattener/flattener.go) to see how an output channel is implemented.
 * `Cleanup()` - Used to cleanup any resources.  This function is called by the processor after the plugin `Process` function exits.  One of the key items to close in the `Cleanup` function is the output channel using the golang `close()` [function](https://gobyexample.com/closing-channels).  Closing the output channel enables the pipeline to be torn down gracefully and in sequence.
@@ -233,7 +233,7 @@ User-defined handler modules can be plugged to the built-in SysFlow `processor` 
 
 #### Interface
 
-Handlers are implemented via the golang plugin mechanism. A handler must implement the following interface, defined in the `github.com/sysflow-telemetry/sf-apis/go/plugins` package.
+Handlers are implemented via the golang plugin mechanism. A handler must implement the following interface, defined in the `github.com/cisco-eti/sf-apis/go/plugins` package.
 
 ```go
 // SFHandler defines the SysFlow handler interface.

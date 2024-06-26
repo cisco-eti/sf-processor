@@ -27,12 +27,12 @@ import (
 	"os"
 	"time"
 
+	"github.com/cisco-eti/sf-apis/go/converter"
+	"github.com/cisco-eti/sf-apis/go/logger"
+	"github.com/cisco-eti/sf-apis/go/plugins"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 	"github.com/linkedin/goavro"
 	"github.com/paulbellamy/ratecounter"
-	"github.com/sysflow-telemetry/sf-apis/go/converter"
-	"github.com/sysflow-telemetry/sf-apis/go/logger"
-	"github.com/sysflow-telemetry/sf-apis/go/plugins"
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
 )
 
 const (

@@ -26,7 +26,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/sysflow-telemetry/sf-apis/go/sfgo"
+	"github.com/cisco-eti/sf-apis/go/sfgo"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/common"
 	"github.com/sysflow-telemetry/sf-processor/core/policyengine/policy"
 )
